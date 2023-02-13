@@ -1,0 +1,53 @@
+# create a backstage template template.yaml file
+apiVersion: scaffolder.backstage.io/v1beta3
+kind: Template
+metadata:
+  name: aks-template
+  title: My AKS Template
+  description: My AKS Template
+spec:
+  owner: team-sre
+  type: service
+  parameters:
+    - title: Service Name
+      required: true
+      fieldId: serviceId
+      type: string
+    - title: Description
+      required: true
+      fieldId: description
+      type: string
+    - title: Owner
+      required: true
+      fieldId: owner
+      type: string
+    - title: Repo URL
+      required: true
+      fieldId: repoUrl
+      type: url
+    - title: Azure Subscription
+      required: true
+      fieldId: azureSubscription
+      type: string
+    - title: Azure Resource Group
+      required: true
+      fieldId: azureResourceGroup
+      type: string
+    - title: Azure Location
+      required: true
+      fieldId: azureLocation
+      type: string
+    - title: Azure AKS Cluster
+      required: true
+      fieldId: azureAKSCluster
+      type: string
+    - title: Azure AKS Namespace
+      required: true
+      fieldId: azureAKSNamespace
+      type: string
+  steps:
+    - id: fetch-base
+      name: Fetch Base
+      action: fetch:cookiecutter
+      input:
+        url:
