@@ -1,0 +1,30 @@
+# # Starter build pipeline
+# Builds the project, tests it and publishes an artifact.
+
+trigger:
+- master
+
+resources:
+- repo: self
+
+variables:
+  azureSubscription: '<Azure Subscription Name>'
+
+stages:
+- stage: Deploy
+  displayName: Deploy stage
+  dependsOn: Build
+  jobs:
+  - job: Deploy
+    pool:
+      vmImage: 'ubuntu-latest'
+    steps:
+    # run azcli
+    - task: AzureCLI@2
+      displayName: 'Azure CLI'
+      inputs:
+        azureSubscription: $(azureSubscription)
+        scriptType: 'bash'
+        scriptLocation: 'scriptPath'
+        scriptPath: 'scripts/simple-aks.sh'
+        arguments: '-n $(azureAKSCluster) -g $(azureResourceGroup) -l $(azureLocation)'

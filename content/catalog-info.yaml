@@ -1,0 +1,12 @@
+# backstage resource
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: ${{ values.name | dump }}
+  description: This is ${{ parameters.name }}
+spec:
+  type: service
+  lifecycle: experimental
+  owner: team-sre
+  dependsOn:
+    - resource:default/artists-db
