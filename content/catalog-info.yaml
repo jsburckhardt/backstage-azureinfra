@@ -1,51 +1,12 @@
 # backstage resource
 apiVersion: backstage.io/v1alpha1
-kind: Resource
+kind: Component
 metadata:
-  name: aks-template
-  description: My AKS Template
+  name: ${{ values.name | dump }}
+  description: This is ${{ parameters.name }}
 spec:
-  type: template
+  type: service
   lifecycle: experimental
   owner: team-sre
-  path: ./template.yaml
-  schema:
-    input:
-      required:
-        - serviceId
-        - description
-        - owner
-        - repoUrl
-        - azureSubscription
-        - azureResourceGroup
-        - azureLocation
-        - azureAKSCluster
-        - azureAKSNamespace
-      properties:
-        serviceId:
-          title: Service Name
-          type: string
-        description:
-          title: Description
-          type: string
-        owner:
-          title: Owner
-          type: string
-        repoUrl:
-          title: Repo URL
-          type: string
-        azureSubscription:
-          title: Azure Subscription
-          type: string
-        azureResourceGroup:
-          title: Azure Resource Group
-          type: string
-        azureLocation:
-          title: Azure Location
-          type: string
-        azureAKSCluster:
-          title: Azure AKS Cluster
-          type: string
-        azureAKSNamespace:
-          title: Azure AKS Namespace
-          type: string
+  dependsOn:
+    - resource:default/artists-db
